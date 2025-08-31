@@ -1,0 +1,50 @@
+%----- Base de Conocimiento -----
+
+% usuarios
+usuario(juan).
+usuario(maria).
+usuario(pedro).
+usuario(laura).
+
+% productos: producto(Id, Categoria)
+producto(laptop, tecnologia).
+producto(smartphone, tecnologia).
+producto(audifonos, tecnologia).
+producto(camiseta, ropa).
+producto(jeans, ropa).
+producto(zapatos, ropa).
+producto(libro_ai, libros).
+producto(libro_prolog, libros).
+
+% compras: compro(Usuario, Producto)
+compro(juan, laptop).
+compro(juan, smartphone).
+compro(juan, libro_ai).
+
+compro(maria, audifonos).
+compro(maria, camiseta).
+compro(maria, libro_prolog).
+
+compro(pedro, jeans).
+compro(pedro, zapatos).
+compro(pedro, libro_ai).
+
+compro(laura, smartphone).
+compro(laura, libro_prolog).
+
+% calificaciones: calificacion(Usuario, Producto, Nota)
+calificacion(juan, laptop, 5).
+calificacion(juan, smartphone, 4).
+calificacion(juan, libro_ai, 5).
+
+calificacion(maria, audifonos, 4).
+calificacion(maria, camiseta, 3).
+calificacion(maria, libro_prolog, 5).
+
+calificacion(pedro, jeans, 4).
+calificacion(pedro, zapatos, 2).
+calificacion(pedro, libro_ai, 5).
+
+calificacion(laura, smartphone, 5).
+calificacion(laura, libro_prolog, 4).
+%-----------------------------------
