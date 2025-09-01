@@ -65,4 +65,14 @@ recomendar_lista(Usuario, Lista) :-
         ListaSinRepetir),
     list_to_set(ListaSinRepetir, Lista).
 
+% 3. Recomendación recursiva: recomendar productos similares por cadena de categorías.
+recomendar_recursivo(Usuario, Producto) :-
+    compro(Usuario, P1),
+    similar_categoria(P1, Producto),
+    \+ compro(Usuario, Producto).
+
+% Definición de similitud recursiva por categoría
+similar_categoria(P1, P2) :- producto(P1, C), producto(P2, C), P1 \= P2.
+similar_categoria(P1, P3) :- producto(P1, C), producto(P2, C), P1 \= P2, similar_categoria(P2, P3).
+
 
