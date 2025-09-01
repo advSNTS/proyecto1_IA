@@ -47,4 +47,22 @@ calificacion(pedro, libro_ai, 5).
 
 calificacion(laura, smartphone, 5).
 calificacion(laura, libro_prolog, 4).
-%-----------------------------------
+%----- Reglas de recomendación -----
+
+% 1. Recomendar un producto basado en categoría de compras previas de un usuario.
+recomendar_uno(Usuario, Producto) :-
+    compro(Usuario, P1),
+    producto(P1, Categoria),
+    producto(Producto, Categoria),
+    \+ compro(Usuario, Producto).
+
+% 2. Recomendar lista de productos con calificación alta de usuarios similares.
+recomendar_lista(Usuario, Lista) :-
+    findall(Prod,
+        (calificacion(U2, Prod, Nota), U2 \= Usuario, Nota >= 4,
+         compro(Usuario, P1), producto(P1, C), producto(Prod, C),
+         \+ compro(Usuario, Prod)),
+        ListaSinRepetir),
+    list_to_set(ListaSinRepetir, Lista).
+
+
