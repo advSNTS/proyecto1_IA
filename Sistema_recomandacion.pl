@@ -75,4 +75,38 @@ recomendar_recursivo(Usuario, Producto) :-
 similar_categoria(P1, P2) :- producto(P1, C), producto(P2, C), P1 \= P2.
 similar_categoria(P1, P3) :- producto(P1, C), producto(P2, C), P1 \= P2, similar_categoria(P2, P3).
 
+% ------------------------------
+% 4. Top 10 de ítems gustados por un grupo de usuarios
+% ------------------------------
+
+% gusto(Usuario, Producto) -> verdadero si la calificación del usuario al producto es mayor a 3
+gusto(U, P) :-
+    calificacion(U, P, Nota), Nota > 3.
+
+% Recolectar todos los productos que les han gustado a una lista de usuarios
+productos_gustados([], []).
+productos_gustados([U|Usuarios], ListaTotal) :-
+    findall(P, gusto(U, P), ListaUsuario),
+    productos_gustados(Usuarios, ListaResto),
+    append(ListaUsuario, ListaResto, ListaTotal).
+
+% Contar ocurrencias de productos y devolver lista de pares (Producto, Conteo)
+contar_productos([], []).
+contar_productos(Lista, Conteos) :-
+    list_to_set(Lista, Unicos),
+    findall((P,C),
+        (member(P, Unicos), include(=(P), Lista, Sub), length(Sub, C)),
+        Conteos).
+
+% Ordenar lista de pares (Producto, Conteo) por Conteo descendente
+ordenar_por_conteo(Conteos, Ordenados) :-
+    sort(2, @>=, Conteos, Ordenados).
+
+% Obtener Top N productos (aquí Top 10)
+top_n_productos(N, Usuarios, TopN) :-
+    productos_gustados(Usuarios, Lista),
+    contar_productos(Lista, Conteos),
+    ordenar_por_conteo(Conteos, Ordenados),
+    length(TopN, N),
+    append(TopN, _, Ordenados).
 
