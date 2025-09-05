@@ -110,6 +110,3 @@ top_n_productos(N, Usuarios, TopN) :-
     length(TopN, N),
     append(TopN, _, Ordenados).
 
-
-
-
